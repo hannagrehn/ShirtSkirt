@@ -1,5 +1,4 @@
-﻿
-namespace ShirtSkirt.Entities;
+﻿namespace ShirtSkirt.Entities;
 
 public class CategoryEntity
 {

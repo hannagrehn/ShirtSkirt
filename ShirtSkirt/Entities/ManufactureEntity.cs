@@ -1,10 +1,13 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ShirtSkirt.Entities;
 
 public class ManufactureEntity
 {
-    public int Id { get; set; }
+    [Key]
+    public int ArticleNumber { get; set; }
+
+    [Required]
     public string ManufactureName { get; set; } = null!;
 
 }

@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.ComponentModel.DataAnnotations;
 
-namespace ShirtSkirt.Entities
+
+namespace ShirtSkirt.Entities;
+
+public class ReviewEntity
 {
-    internal class ReviewEntity
-    {
-    }
+
+    [Key]
+    public int RewievId { get; set; }
+
+    public string RewieverName { get; set; } = null!;
+    public int Rating { get; set; }
+    public string RewievText { get; set; } = null!;
+    public string ReviewDate { get; set; } = null!;
 }
