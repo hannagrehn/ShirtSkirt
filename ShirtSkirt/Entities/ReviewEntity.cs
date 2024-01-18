@@ -8,15 +8,15 @@ public class ReviewEntity
 {
 
     [Key]
-    public int RewievId { get; set; }
+    public int ReviewId { get; set; }
 
     [Required]
-    public string RewieverName { get; set; } = null!;
+    public string ReviewerName { get; set; } = null!;
 
     [Required]
     public int Rating { get; set; }
 
-    public string? RewievText { get; set; } 
+    public string? ReviewText { get; set; } 
 
     [Required]
     public string ReviewDate { get; set; } = null!;
