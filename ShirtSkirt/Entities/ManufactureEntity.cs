@@ -5,7 +5,7 @@ namespace ShirtSkirt.Entities;
 public class ManufactureEntity
 {
     [Key]
-    public int ArticleNumber { get; set; }
+    public int ManufactureId { get; set; }
 
     [Required]
     public string ManufactureName { get; set; } = null!;
