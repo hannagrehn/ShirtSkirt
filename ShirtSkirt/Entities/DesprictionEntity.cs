@@ -1,5 +1,4 @@
 ﻿
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +17,3 @@ public class DesprictionEntity
 }
 
 
-[Required]
-[ForeignKey(nameof(ReviewEntity))]
-public int PriceId { get; set; }
