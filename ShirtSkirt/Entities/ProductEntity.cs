@@ -33,8 +33,8 @@ namespace ShirtSkirt.Entities
         [ForeignKey(nameof(CategoryEntity))]
         public int CategoryId { get; set; }
 
-        //public virtual ICollection<ReviewEntity> Reviews { get; set; } = new HashSet<ReviewEntity>();
+        public virtual ICollection<ReviewEntity> Reviews { get; set; } = new HashSet<ReviewEntity>();
 
-        //public virtual ReviewEntity ReviewEntity { get; set; } = null!;
+        public virtual ReviewEntity ReviewEntity { get; set; } = null!;
     }
 }
