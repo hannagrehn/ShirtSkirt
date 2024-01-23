@@ -15,14 +15,18 @@ namespace ShirtSkirt.Contexts
 
         public virtual DbSet<ProductEntity> Products { get; set; }
         public virtual DbSet<ManufactureEntity> Manufactures { get; set; }
-        public virtual DbSet<DesprictionEntity> Descriptions { get; set; }
+        public virtual DbSet<DescriptionEntity> Descriptions { get; set; }
         public virtual DbSet<ReviewEntity> Reviews { get; set; }
         public virtual DbSet<PricelistEntity> Prices { get; set; }
         public virtual DbSet<CategoryEntity> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DesprictionEntity>()
+
+            modelBuilder.Entity<ManufactureEntity>()
+                .HasIndex(x => x.ManufactureId);
+
+            modelBuilder.Entity<DescriptionEntity>()
                 .HasIndex(x => x.DescriptionId)
                 .IsUnique();
 
@@ -33,6 +37,10 @@ namespace ShirtSkirt.Contexts
             modelBuilder.Entity<PricelistEntity>()
                 .HasIndex(x => x.PriceId)
                 .IsUnique();
+
+            modelBuilder.Entity<CategoryEntity>()
+                .HasIndex(x => x.CategoryId);
+                
         }
     }
 }

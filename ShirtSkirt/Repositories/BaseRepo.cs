@@ -22,7 +22,7 @@ public abstract class BaseRepo<TEntity> where TEntity : class
             _context.SaveChanges();
             return entity;
         }
-        catch (Exception ex) { Debug.WriteLine("Noo :: " + ex.Message); }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     } 
 
@@ -33,7 +33,7 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         {
             return _context.Set<TEntity>().ToList();
         }
-        catch (Exception ex) { Debug.WriteLine("Neein :: " + ex.Message); }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
 
@@ -43,9 +43,11 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         {
             return _context.Set<TEntity>().FirstOrDefault(predicate, null!);
         }
-        catch (Exception ex) { Debug.WriteLine("Neein :: " + ex.Message); }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
+
+
 
 
     public virtual TEntity Update(TEntity entity)
@@ -63,7 +65,7 @@ public abstract class BaseRepo<TEntity> where TEntity : class
             }
 
         }
-        catch (Exception ex) { Debug.WriteLine("Neein :: " + ex.Message); }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
 
@@ -82,7 +84,18 @@ public abstract class BaseRepo<TEntity> where TEntity : class
             }
 
         }
-        catch (Exception ex) { Debug.WriteLine("Neein :: " + ex.Message); }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
+        return false;
+    }
+
+    public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
+    {
+        try
+        {
+            return _context.Set<TEntity>().Any(predicate);
+
+        }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return false;
     }
 }
