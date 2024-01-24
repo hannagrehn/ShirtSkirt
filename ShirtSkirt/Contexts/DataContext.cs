@@ -40,7 +40,12 @@ namespace ShirtSkirt.Contexts
 
             modelBuilder.Entity<CategoryEntity>()
                 .HasIndex(x => x.CategoryId);
-                
+
+            modelBuilder.Entity<ProductEntity>()
+                .HasMany(p => p.Reviews)
+                .WithOne(r => r.Product)
+                .HasForeignKey(r => r.ProductId);
+
         }
     }
 }
