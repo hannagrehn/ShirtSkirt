@@ -34,12 +34,22 @@ namespace ShirtSkirt.Contexts
                 .HasIndex(x => x.ReviewId)
                 .IsUnique();
 
+            modelBuilder.Entity<ReviewEntity>()
+                .HasOne(review => review.Product)
+                .WithMany(product => product.Reviews)
+                .HasForeignKey(review => review.ProductId);
+
+
             modelBuilder.Entity<PricelistEntity>()
                 .HasIndex(x => x.PriceId)
                 .IsUnique();
 
+        
             modelBuilder.Entity<CategoryEntity>()
-                .HasIndex(x => x.CategoryId);
+                .HasMany(category => category.Products)
+                .WithOne(product => product.CategoryEntity)
+                .HasForeignKey(product => product.CategoryId);
+
 
             modelBuilder.Entity<ProductEntity>()
                 .HasMany(p => p.Reviews)

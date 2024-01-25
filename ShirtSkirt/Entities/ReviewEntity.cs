@@ -21,8 +21,15 @@ public class ReviewEntity
     public DateTime ReviewDate { get; set; }
 
     [Required]
-    public int ProductId { get; set; }
+    public string ProductId { get; set; } = null!;
 
     public virtual ProductEntity Product { get; set; } = null!;
     public virtual ICollection<ProductEntity> Products { get; set; } = new HashSet<ProductEntity>();
+
+
+   
+    
+  
+    
+
 }
