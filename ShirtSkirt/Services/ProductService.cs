@@ -27,7 +27,19 @@ public class ProductService
 
 
 
-    public ProductEntity CreateProduct(string articleNumber, string title, string manufactureName, string ingress, string reviewText, decimal price, string categoryName)
+    public ProductEntity CreateProduct(
+        string articleNumber, 
+        string title, 
+        string manufactureName, 
+        string ingress, 
+        string longDescription, 
+        string reviewText, 
+        int rating,
+        string reviewerName,
+        DateTime reviewDate,
+        decimal price, 
+        string categoryName)
+
     {
 
         var categoryEntity = _categoryService.CreateCategory(categoryName);
@@ -49,12 +61,15 @@ public class ProductService
                 PriceId = pricelistEntity.PriceId,
                 ReviewId = reviewEntity.ReviewId
             };
+
+            productEntity = _productRepo.Create(productEntity);
+            return productEntity;
+
         }
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
-
-
     }
+
 
 public ProductEntity GetProductByTitle(string title)
     {
