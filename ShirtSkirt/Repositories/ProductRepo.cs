@@ -1,22 +1,16 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using ShirtSkirt.Contexts;
-//using ShirtSkirt.Entities;
-//using System;
-//using System.Collections.Generic;
-//using System.Diagnostics;
-//using System.Linq;
-//using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using ShirtSkirt.Contexts;
+using ShirtSkirt.Entities;
+namespace ShirtSkirt.Repositories;
 
-//namespace ShirtSkirt.Repositories;
-
-//public class ProductRepo(DataContext context) : BaseRepo<ProductEntity>(context)
-//{ 
-//    private readonly DataContext _context;
-    
+public class ProductRepo(DataContext context) : BaseRepo<ProductEntity>(context)
+{
+    private readonly DataContext _context;
+}
 
 //    public override IEnumerable<ProductEntity> GetAll()
 //    {
-       
+
 
 //        try
 //        {

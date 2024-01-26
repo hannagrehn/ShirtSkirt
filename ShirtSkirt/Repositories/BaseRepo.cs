@@ -64,6 +64,9 @@ public abstract class BaseRepo<TEntity> where TEntity : class
   
 
 
+
+
+
     public virtual bool Delete(Expression<Func<TEntity, bool>> predicate)
     {
         try
