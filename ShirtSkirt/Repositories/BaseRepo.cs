@@ -48,47 +48,20 @@ public abstract class BaseRepo<TEntity> where TEntity : class
     }
 
 
-    public virtual TEntity Update(TEntity entity)
+    public virtual TEntity Update(Expression<Func<TEntity, bool>> expression, TEntity entity)
     {
         try
         {
-            var entry = _context.Entry(entity);
-            var keyValues = entry.Metadata.FindPrimaryKey().Properties
-                .Select(p => entry.Property(p.Name).CurrentValue)
-                .ToArray();
+            var entityToUpdate = _context.Set<TEntity>().FirstOrDefault(expression);
+            _context.Entry(entityToUpdate!).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
 
-            var entityToUpdate = _context.Set<TEntity>().Find(keyValues);
-
-            if (entityToUpdate != null)
-            {
-                _context.Entry(entityToUpdate).CurrentValues.SetValues(entity);
-                _context.SaveChanges();
-                return entityToUpdate;
-            }
+            return entityToUpdate!;
         }
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
-
-    //Old one here
-    //public virtual TEntity Update(TEntity entity)
-    //{
-    //    try
-    //    {
-    //        var entityToUpdate = _context.Set<TEntity>().Find(entity);
-    //        if (entityToUpdate != null)
-    //        {
-    //            entityToUpdate = entity;
-    //            _context.Set<TEntity>().Update(entityToUpdate);
-    //            _context.SaveChanges();
-
-    //            return entityToUpdate;
-    //        }
-
-    //    }
-    //    catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
-    //    return null!;
-    //}
+  
 
 
     public virtual bool Delete(Expression<Func<TEntity, bool>> predicate)
@@ -108,6 +81,8 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return false;
     }
+
+
 
     public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
     {

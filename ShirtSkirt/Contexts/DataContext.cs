@@ -5,10 +5,6 @@ namespace ShirtSkirt.Contexts
 {
     public class DataContext : DbContext
     {
-        public DataContext() 
-        { 
-        }
-
         public DataContext(DbContextOptions<DataContext> options) : base(options) 
         { 
         }
@@ -20,17 +16,6 @@ namespace ShirtSkirt.Contexts
         public virtual DbSet<PricelistEntity> Prices { get; set; }
         public virtual DbSet<CategoryEntity> Categories { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-            modelBuilder.Entity<ProductEntity>()
-                .HasOne(p => p.ManufactureEntity)
-                .WithMany(m => m.Products)
-                .HasForeignKey(p => p.ManufactureId);
-
-
-
-
-        }
+       
     }
 }

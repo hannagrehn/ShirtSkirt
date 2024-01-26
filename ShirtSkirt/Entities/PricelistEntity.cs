@@ -9,13 +9,10 @@ namespace ShirtSkirt.Entities
         [Key]
         public int PriceId { get; set; }
 
-        [Required]
         [Column(TypeName = "money")]
-        [Precision(10,2)]
         public decimal Price { get; set; }
 
         [Column(TypeName = "money")]
-        [Precision(10, 2)]
         public decimal? DiscountedPrice { get; set; }
     }
 }
