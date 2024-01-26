@@ -22,6 +22,7 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 }).Build();
 
 
+
 builder.Start();
 
 var productService = builder.Services.GetRequiredService<ProductService>();

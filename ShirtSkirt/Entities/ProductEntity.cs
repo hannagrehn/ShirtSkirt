@@ -34,14 +34,10 @@ public class ProductEntity
 
 
 
-    public virtual ICollection<ReviewEntity> Reviews { get; set; } = new HashSet<ReviewEntity>();
-
+    public virtual ICollection<ReviewEntity> Reviews { get; set; } 
     public virtual ReviewEntity ReviewEntity { get; set; } = null!;
 
-
-
-    public virtual ICollection<CategoryEntity> Categories { get; set; } = new HashSet<CategoryEntity>();
-
+    public virtual ICollection<CategoryEntity> Categories { get; set; } 
     public virtual CategoryEntity CategoryEntity { get; set; } = null!;
 
     public virtual ManufactureEntity ManufactureEntity { get; set; } = null!;

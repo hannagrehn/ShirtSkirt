@@ -23,38 +23,13 @@ namespace ShirtSkirt.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<ManufactureEntity>()
-                .HasIndex(x => x.ManufactureId);
-
-            modelBuilder.Entity<DescriptionEntity>()
-                .HasIndex(x => x.DescriptionId)
-                .IsUnique();
-
-            modelBuilder.Entity<ReviewEntity>()
-                .HasIndex(x => x.ReviewId)
-                .IsUnique();
-
-            modelBuilder.Entity<ReviewEntity>()
-                .HasOne(review => review.Product)
-                .WithMany(product => product.Reviews)
-                .HasForeignKey(review => review.ProductId);
-
-
-            modelBuilder.Entity<PricelistEntity>()
-                .HasIndex(x => x.PriceId)
-                .IsUnique();
-
-        
-            modelBuilder.Entity<CategoryEntity>()
-                .HasMany(category => category.Products)
-                .WithOne(product => product.CategoryEntity)
-                .HasForeignKey(product => product.CategoryId);
-
-
             modelBuilder.Entity<ProductEntity>()
-                .HasMany(p => p.Reviews)
-                .WithOne(r => r.Product)
-                .HasForeignKey(r => r.ProductId);
+                .HasOne(p => p.ManufactureEntity)
+                .WithMany(m => m.Products)
+                .HasForeignKey(p => p.ManufactureId);
+
+
+
 
         }
     }

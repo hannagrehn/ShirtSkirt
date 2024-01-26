@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShirtSkirt.Entities
@@ -10,9 +11,11 @@ namespace ShirtSkirt.Entities
 
         [Required]
         [Column(TypeName = "money")]
+        [Precision(10,2)]
         public decimal Price { get; set; }
 
         [Column(TypeName = "money")]
+        [Precision(10, 2)]
         public decimal? DiscountedPrice { get; set; }
     }
 }

@@ -23,13 +23,10 @@ public class ReviewEntity
     [Required]
     public string ProductId { get; set; } = null!;
 
-    public virtual ProductEntity Product { get; set; } = null!;
+
     public virtual ICollection<ProductEntity> Products { get; set; } = new HashSet<ProductEntity>();
+    public virtual ProductEntity Product { get; set; } = null!;
 
 
-   
-    
-  
-    
 
 }
