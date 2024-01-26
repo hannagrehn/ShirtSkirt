@@ -24,6 +24,6 @@ public class ProductEntity
     public PricelistEntity Price { get; set; } = null!;
 
     public int CategoryId { get; set; }
-    public CategoryEntity Category { get; set; } = null!;
+    public CategoryEntity CategoryName { get; set; } = null!;
 
 }

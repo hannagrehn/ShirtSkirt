@@ -16,39 +16,39 @@ public class DescriptionService
         _descriptionRepo = descriptionRepo;
     }
 
+    public DescriptionEntity CreateDescription(string ingress, string longDescription)
+    {
+        var descriptionEntity = _descriptionRepo.GetOne(x => x.Ingress == ingress && x.LongDescription == longDescription);
+        descriptionEntity ??= _descriptionRepo.Create(new DescriptionEntity { Ingress = ingress, LongDescription = longDescription });
+        return descriptionEntity;
+    }
 
-    public DescriptionEntity CreateCategory(string Ingress)
+    public DescriptionEntity GetDescriptionByIngress(string Ingress)
     {
         var DescriptionEntity = _descriptionRepo.GetOne(x => x.Ingress == Ingress);
-        DescriptionEntity ??= _descriptionRepo.Create(new DescriptionEntity { Ingress = Ingress });
         return DescriptionEntity;
     }
 
-    public DescriptionEntity GetCategoryByName(string Ingress)
-    {
-        var DescriptionEntity = _descriptionRepo.GetOne(x => x.Ingress == Ingress);
-        return DescriptionEntity;
-    }
 
-    public DescriptionEntity GetCategoryById(int id)
+    public DescriptionEntity GetDescriptionById(int id)
     {
         var DescriptionEntity = _descriptionRepo.GetOne(x => x.DescriptionId == id);
         return DescriptionEntity;
     }
 
-    public IEnumerable<DescriptionEntity> GetCategories()
+    public IEnumerable<DescriptionEntity> GetDescriptions()
     {
-        var categories = _descriptionRepo.GetAll();
-        return categories;
+        var descriptions = _descriptionRepo.GetAll();
+        return descriptions;
     }
 
-    public DescriptionEntity UpdateCategory(DescriptionEntity DescriptionEntity)
+    public DescriptionEntity UpdateDescription(DescriptionEntity descriptionEntity)
     {
-        var updatedDescriptionEntity = _descriptionRepo.Update(x => x.DescriptionId == DescriptionEntity.DescriptionId, DescriptionEntity);
+        var updatedDescriptionEntity = _descriptionRepo.Update(x => x.DescriptionId == descriptionEntity.DescriptionId, descriptionEntity);
         return updatedDescriptionEntity;
     }
 
-    public bool DeleteCategory(int id)
+    public bool DeleteDescription(int id)
     {
         try
         {
@@ -56,7 +56,7 @@ public class DescriptionService
         }
         catch (Exception ex)
         {
-            Debug.WriteLine("Error: " + ex.Message);
+            Debug.WriteLine("Error :: " + ex.Message);
             return false;
         }
     }

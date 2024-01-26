@@ -61,10 +61,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
-  
-
-
-
 
 
     public virtual bool Delete(Expression<Func<TEntity, bool>> predicate)

@@ -1,135 +1,100 @@
 ﻿
-using ShirtSkirt.Dtos;
 using ShirtSkirt.Entities;
 using ShirtSkirt.Repositories;
 using System.Diagnostics;
 
+
 namespace ShirtSkirt.Services;
 
-//public class ProductService(
-//    CategoryRepo categoryRepo,
-//    ProductRepo productRepo,
-//    DescriptionRepo descriptionRepo,
-//    ManufactureRepo manufactureRepo,
-//    PriceRepo priceRepo,
-//    ReviewRepo reviewRepo)
-//{
-//    private readonly CategoryRepo _categoryRepo = categoryRepo;
-//    private readonly ProductRepo _productRepo = productRepo;
-//    private readonly DescriptionRepo _descriptionRepo = descriptionRepo;
-//    private readonly ManufactureRepo _manufactureRepo = manufactureRepo;
-//    private readonly PriceRepo _priceRepo = priceRepo;
-//    private readonly ReviewRepo _reviewRepo = reviewRepo;
+public class ProductService
+{
+    private readonly ProductRepo _productRepo;
+    private readonly CategoryService _categoryService;
+    private readonly DescriptionService _descriptionService;
+    private readonly ManufactureService _manufacturerService;
+    private readonly PriceService _priceService;
+    private readonly ReviewService _reviewService;
 
-//    public bool CreateProduct(CreateProductDto product)
-//    {
-//        try
-//        {
-//            if (!_productRepo.Exists(x => x.ArticleNumber == product.ArticleNumber))
-//            {
-                
-//                var categoryEntity = _categoryRepo.GetOne(x => x.CategoryName == product.CategoryName)
-//                    ?? _categoryRepo.Create(new CategoryEntity { CategoryName = product.CategoryName });
-
-                
-//                var manufactureEntity = _manufactureRepo.GetOne(x => x.ManufactureName == product.ManufactureName)
-//                    ?? _manufactureRepo.Create(new ManufactureEntity { ManufactureName = product.ManufactureName });
-
-          
-//                var descriptionEntity = _descriptionRepo.Create(new DescriptionEntity { Ingress = product.Ingress, LongDescription = product.LongDescription });
-
-              
-//                var reviewEntity = _reviewRepo.Create(new ReviewEntity
-//                {
-//                    ReviewerName = product.ReviewerName,
-//                    Rating = product.Rating,
-//                    ReviewText = product.ReviewText,
-//                    ReviewDate = product.ReviewDate
-//                });
-
-    
-//                var pricelistEntity = _priceRepo.Create(new PricelistEntity { Price = product.Price });
-
-//                var productEntity = new ProductEntity
-//                {
-//                    ArticleNumber = product.ArticleNumber,
-//                    Title = product.Title,
-//                    ManufactureEntity = manufactureEntity,
-//                    DescriptionEntity = descriptionEntity,
-//                    ReviewEntity = reviewEntity,
-//                    PricelistEntity = pricelistEntity,
-//                    CategoryEntity = categoryEntity
-//                };
-
-//                var result = _productRepo.Create(productEntity);
-//                if (result != null)
-//                    return true;
-//            }
-//        }
-//        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
-
-//        return false;
-//    }
+    public ProductService(ProductRepo productRepo, CategoryService categoryService, DescriptionService descriptionService, ManufactureService manufacturerService, PriceService priceService, ReviewService reviewService)
+    {
+        _productRepo = productRepo;
+        _categoryService = categoryService;
+        _descriptionService = descriptionService;
+        _manufacturerService = manufacturerService;
+        _priceService = priceService;
+        _reviewService = reviewService;
+    }
 
 
 
+    public ProductEntity CreateProduct(string articleNumber, string title, string manufactureName, string ingress, string reviewText, decimal price, string categoryName)
+    {
+
+        var categoryEntity = _categoryService.CreateCategory(categoryName);
+        var descriptionEntity = _descriptionService.CreateDescription(ingress, longDescription);
+        var manufactureEntity = _manufacturerService.CreateManufacture(manufactureName);
+        var pricelistEntity = _priceService.CreatePrice(price);
+        var reviewEntity = _reviewService.CreateReview(reviewText, rating, reviewerName, reviewDate);
 
 
-    //public bool CreateProduct(CreateProductDto product)
-    //{
-    //    try
-    //    {
-    //        if (!_productRepo.Exists(x => x.ArticleNumber == product.ArticleNumber))
-    //        {
-    //            var categoryEntity = _categoryRepo.GetOne(x => x.CategoryName == product.CategoryName);
-    //            categoryEntity ??= _categoryRepo.Create(new CategoryEntity { CategoryName = product.CategoryName });
-
-    //            var productEntity = new ProductEntity
-    //            {
-    //                ArticleNumber = product.ArticleNumber,
-    //                Title = product.Title,
-    //                ManufactureId = product.ManufactureId,
-    //                DescriptionId = product.DescriptionId,
-    //                ReviewId = product.ReviewId,
-    //                PriceId = product.PriceId,
-    //                CategoryId = product.CategoryId,
-    //            };
-
-    //            var result = _productRepo.Create(productEntity);
-    //            if (result != null)
-    //                return true;
-    //        }
-    //    }
-    //    catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
-
-    //    return false;
-    //}
-
-//    public IEnumerable<ProductDto> GetAllProducts()
-//    {
-//        var products = new List<ProductDto>();
-
-//        try
-//        {
-//            var result = _productRepo.GetAll();
+        try
+        {
+            var productEntity = new ProductEntity
+            {
+                ArticleNumber = articleNumber,
+                Title = title,
+                CategoryId = categoryEntity.CategoryId,
+                DescriptionId = descriptionEntity.DescriptionId,
+                ManufactureId = manufactureEntity.ManufactureId,
+                PriceId = pricelistEntity.PriceId,
+                ReviewId = reviewEntity.ReviewId
+            };
+        }
+        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
+        return null!;
 
 
-//            foreach (var product in result)
-//                products.Add(new ProductDto
-//                {
-//                    ArticleNumber = product.ArticleNumber,
-//                    Title = product.Title,
-//                    ManufactureId = product.ManufactureId,
-//                    DescriptionId = product.DescriptionId,
-//                    ReviewId = product.ReviewId,
-//                    PriceId = product.PriceId,
-//                    CategoryId = product.CategoryId,
-                  
-//                });
-//        }
-//        catch(Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
+    }
+
+public ProductEntity GetProductByTitle(string title)
+    {
+        var productEntity = _productRepo.GetOne(x => x.Title == title);
+        return productEntity;
+    }
 
 
-//        return products;
-//    }
-//}
+    public ProductEntity GetProductByArticleNumber(string articleNumber)
+    {
+        var productEntity = _productRepo.GetOne(x => x.ArticleNumber == articleNumber);
+        return productEntity;
+    }
+
+
+    public IEnumerable<ProductEntity> GetProducts()
+    {
+        var products = _productRepo.GetAll();
+        return products;
+    }
+
+
+    public ProductEntity UpdateProduct(ProductEntity productEntity)
+    {
+        var updatedProductEntity = _productRepo.Update(x => x.ArticleNumber == productEntity.ArticleNumber, productEntity);
+        return updatedProductEntity;
+    }
+
+
+    public bool DeleteProduct(string articleNumber)
+    {
+        try
+        {
+            return _productRepo.Delete(x => x.ArticleNumber == articleNumber);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Error :: " + ex.Message);
+            return false;
+        }
+    }
+}
+
