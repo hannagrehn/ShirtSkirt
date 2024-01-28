@@ -6,6 +6,8 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services;
 
+
+//this will not work 
 public class ProductService
 {
     private readonly ProductRepo _productRepo;
