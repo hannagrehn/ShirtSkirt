@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services;
 
-//Allt här kanske är år helvete
+//Allt här kanske är åt helvete
 
 public class DescriptionService
 {

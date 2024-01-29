@@ -6,8 +6,6 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services;
 
-
-//this will not work 
 public class ProductService
 {
     private readonly ProductRepo _productRepo;
@@ -73,7 +71,7 @@ public class ProductService
     }
 
 
-public ProductEntity GetProductByTitle(string title)
+    public ProductEntity GetProductByTitle(string title)
     {
         var productEntity = _productRepo.GetOne(x => x.Title == title);
         return productEntity;
