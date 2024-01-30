@@ -16,6 +16,6 @@ public class ReviewEntity
 
     public string? ReviewText { get; set; }
 
-    public DateTime ReviewDate { get; set; }
+    public DateOnly ReviewDate { get; set; }
    
 }

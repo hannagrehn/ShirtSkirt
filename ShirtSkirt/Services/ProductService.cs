@@ -32,13 +32,13 @@ public class ProductService
         string title, 
         string manufactureName, 
         string ingress, 
-        string longDescription, 
+        string longDescription,
+        decimal price,
+        string categoryName,
         string reviewText, 
         int rating,
         string reviewerName,
-        DateTime reviewDate,
-        decimal price, 
-        string categoryName)
+        DateOnly reviewDate)
 
     {
 
@@ -50,7 +50,7 @@ public class ProductService
 
 
         try
-        {
+        {//this block got the error
             var productEntity = new ProductEntity
             {
                 ArticleNumber = articleNumber,

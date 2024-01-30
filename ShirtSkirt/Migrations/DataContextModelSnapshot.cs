@@ -154,8 +154,8 @@ namespace ShirtSkirt.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("ReviewDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("ReviewText")
                         .HasColumnType("nvarchar(max)");
@@ -171,7 +171,7 @@ namespace ShirtSkirt.Migrations
 
             modelBuilder.Entity("ShirtSkirt.Entities.ProductEntity", b =>
                 {
-                    b.HasOne("ShirtSkirt.Entities.CategoryEntity", "Category")
+                    b.HasOne("ShirtSkirt.Entities.CategoryEntity", "CategoryName")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -201,7 +201,7 @@ namespace ShirtSkirt.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("CategoryName");
 
                     b.Navigation("Ingress");
 

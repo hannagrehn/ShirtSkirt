@@ -2,8 +2,8 @@
 using ShirtSkirt.Contexts;
 using ShirtSkirt.Entities;
 using System.Diagnostics;
-using System.Linq;
 using System.Linq.Expressions;
+
 namespace ShirtSkirt.Repositories;
 
 public class ProductRepo(DataContext context) : BaseRepo<ProductEntity>(context)

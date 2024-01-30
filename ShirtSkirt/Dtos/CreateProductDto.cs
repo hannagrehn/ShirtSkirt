@@ -10,7 +10,7 @@ public class CreateProductDto
     public string ReviewerName { get; set; } = null!;
     public int Rating { get; set; }
     public string ReviewText { get; set; } = null!;
-    public DateTime ReviewDate { get; set; }
+    public DateOnly ReviewDate { get; set; }
     public decimal Price { get; set; }
     public string CategoryName { get; set; } = null!;
 }

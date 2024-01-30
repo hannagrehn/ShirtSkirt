@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services;
 
-//Allt här kanske är åt helvete
 
 public class DescriptionService
 {
@@ -25,15 +24,15 @@ public class DescriptionService
 
     public DescriptionEntity GetDescriptionByIngress(string Ingress)
     {
-        var DescriptionEntity = _descriptionRepo.GetOne(x => x.Ingress == Ingress);
-        return DescriptionEntity;
+        var descriptionEntity = _descriptionRepo.GetOne(x => x.Ingress == Ingress);
+        return descriptionEntity;
     }
 
 
     public DescriptionEntity GetDescriptionById(int id)
     {
-        var DescriptionEntity = _descriptionRepo.GetOne(x => x.DescriptionId == id);
-        return DescriptionEntity;
+        var descriptionEntity = _descriptionRepo.GetOne(x => x.DescriptionId == id);
+        return descriptionEntity;
     }
 
     public IEnumerable<DescriptionEntity> GetDescriptions()

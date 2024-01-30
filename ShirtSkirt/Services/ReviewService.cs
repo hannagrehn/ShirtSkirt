@@ -9,15 +9,16 @@ namespace ShirtSkirt.Services;
 public class ReviewService
 {
     private readonly ReviewRepo _reviewRepo;
+    private readonly ReviewService _reviewService;
 
     public ReviewService(ReviewRepo reviewRepo)
     {
         _reviewRepo = reviewRepo;
     }
 
-    public ReviewEntity CreateReview(string reviewerName, int rating, string reviewText, DateTime reviewDate)
+    public ReviewEntity CreateReview(string reviewerName, int rating, string reviewText, DateOnly reviewDate)
     {
-        reviewDate = reviewDate.Date;
+        
 
         try
         {

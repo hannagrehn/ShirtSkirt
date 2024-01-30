@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ShirtSkirt.Repositories;
 using ShirtSkirt.Services;
 using ShirtSkirt.Dtos;
+using ShirtSkirt;
 
 var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 {
@@ -22,6 +23,13 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
     services.AddScoped<DescriptionService>();
     services.AddScoped<ManufactureService>();
     services.AddScoped<PriceService>();
+    services.AddScoped<ReviewService>();
     services.AddScoped<ProductService>();
+  
+    services.AddScoped<UserScreen>();
 
 }).Build();
+
+
+var userScreen = builder.Services.GetRequiredService<UserScreen>();
+userScreen.CreateProduct_UI();
