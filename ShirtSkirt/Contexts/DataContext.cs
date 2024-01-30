@@ -16,15 +16,5 @@ namespace ShirtSkirt.Contexts
         public virtual DbSet<PricelistEntity> Prices { get; set; }
         public virtual DbSet<CategoryEntity> Categories { get; set; }
 
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ProductEntity>()
-                .HasOne(p => p.CategoryName)
-                .WithMany()
-                .HasForeignKey(p => p.CategoryId);
-
-                 
-        }
     }
 }

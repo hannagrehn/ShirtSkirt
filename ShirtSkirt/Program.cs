@@ -4,13 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ShirtSkirt.Repositories;
 using ShirtSkirt.Services;
-using ShirtSkirt.Dtos;
 using ShirtSkirt;
 
 var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 {
     services.AddDbContext<DataContext>(x =>
-        x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\ShirtSkirt\ShirtSkirt\Data\shirt_db.mdf;Integrated Security=True;Connect Timeout=30"));
+        x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\ShirtSkirt\ShirtSkirt\Data\db_skirt.mdf;Integrated Security=True;Connect Timeout=30"));
 
     services.AddScoped<CategoryRepo>(); 
     services.AddScoped<DescriptionRepo>();
@@ -32,4 +31,7 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 
 
 var userScreen = builder.Services.GetRequiredService<UserScreen>();
+
 userScreen.CreateProduct_UI();
+//userScreen.GetProducts_UI();
+//userScreen.AddCategory_UI();

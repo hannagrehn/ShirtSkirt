@@ -103,6 +103,9 @@ namespace ShirtSkirt.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CategoryNameCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DescriptionId")
                         .HasColumnType("int");
 
@@ -130,7 +133,7 @@ namespace ShirtSkirt.Migrations
 
                     b.HasKey("ArticleNumber");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryNameCategoryId");
 
                     b.HasIndex("IngressDescriptionId");
 
@@ -173,7 +176,7 @@ namespace ShirtSkirt.Migrations
                 {
                     b.HasOne("ShirtSkirt.Entities.CategoryEntity", "CategoryName")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryNameCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

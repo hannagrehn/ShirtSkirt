@@ -21,12 +21,12 @@ public class ProductEntity
     public DescriptionEntity Ingress { get; set; } = null!;
 
 
-    [ForeignKey("CategoryId")]
+    [ForeignKey("ReviewId")]
     public int ReviewId { get; set; }
     public ReviewEntity ReviewText { get; set; } = null!;
 
 
-    [ForeignKey("CategoryId")]
+    [ForeignKey("PriceId")]
     public int PriceId { get; set; }
     public PricelistEntity Price { get; set; } = null!;
 

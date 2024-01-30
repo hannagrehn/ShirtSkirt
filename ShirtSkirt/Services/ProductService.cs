@@ -1,115 +1,123 @@
-﻿
-using ShirtSkirt.Entities;
+﻿using ShirtSkirt.Entities;
 using ShirtSkirt.Repositories;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
-
-namespace ShirtSkirt.Services;
-
-public class ProductService
+namespace ShirtSkirt.Services
 {
-    private readonly ProductRepo _productRepo;
-    private readonly CategoryService _categoryService;
-    private readonly DescriptionService _descriptionService;
-    private readonly ManufactureService _manufacturerService;
-    private readonly PriceService _priceService;
-    private readonly ReviewService _reviewService;
-
-    public ProductService(ProductRepo productRepo, CategoryService categoryService, DescriptionService descriptionService, ManufactureService manufacturerService, PriceService priceService, ReviewService reviewService)
+    public class ProductService
     {
-        _productRepo = productRepo;
-        _categoryService = categoryService;
-        _descriptionService = descriptionService;
-        _manufacturerService = manufacturerService;
-        _priceService = priceService;
-        _reviewService = reviewService;
-    }
+        private readonly ProductRepo _productRepo;
+        private readonly CategoryService _categoryService;
+        private readonly DescriptionService _descriptionService;
+        private readonly ManufactureService _manufacturerService;
+        private readonly PriceService _priceService;
+        private readonly ReviewService _reviewService;
 
+        public ProductService(ProductRepo productRepo, CategoryService categoryService, DescriptionService descriptionService, ManufactureService manufacturerService, PriceService priceService, ReviewService reviewService)
+        {
+            _productRepo = productRepo;
+            _categoryService = categoryService;
+            _descriptionService = descriptionService;
+            _manufacturerService = manufacturerService;
+            _priceService = priceService;
+            _reviewService = reviewService;
+        }
 
-
-    public ProductEntity CreateProduct(
-        string articleNumber, 
-        string title, 
-        string manufactureName, 
-        string ingress, 
-        string longDescription,
-        decimal price,
-        string categoryName,
-        string reviewText, 
-        int rating,
-        string reviewerName,
-        DateOnly reviewDate)
-
-    {
-
-        var categoryEntity = _categoryService.CreateCategory(categoryName);
-        var descriptionEntity = _descriptionService.CreateDescription(ingress, longDescription);
-        var manufactureEntity = _manufacturerService.CreateManufacture(manufactureName);
-        var pricelistEntity = _priceService.CreatePrice(price);
-        var reviewEntity = _reviewService.CreateReview(reviewText, rating, reviewerName, reviewDate);
-
-
-        try
-        {//this block got the error
-            var productEntity = new ProductEntity
+        public ProductEntity CreateProduct(
+            string articleNumber,
+            string title,
+            string manufactureName,
+            string ingress,
+            string longDescription,
+            decimal price,
+            string categoryName,
+            string reviewText,
+            int rating,
+            string reviewerName,
+            DateOnly reviewDate)
+        {
+            try
             {
-                ArticleNumber = articleNumber,
-                Title = title,
-                CategoryId = categoryEntity.CategoryId,
-                DescriptionId = descriptionEntity.DescriptionId,
-                ManufactureId = manufactureEntity.ManufactureId,
-                PriceId = pricelistEntity.PriceId,
-                ReviewId = reviewEntity.ReviewId
-            };
+                var categoryEntity = _categoryService.CreateCategory(categoryName);
+                var descriptionEntity = _descriptionService.CreateDescription(ingress, longDescription);
+                var manufactureEntity = _manufacturerService.CreateManufacture(manufactureName);
+                var pricelistEntity = _priceService.CreatePrice(price);
+                var reviewEntity = _reviewService.CreateReview(reviewText, rating, reviewerName, reviewDate);
 
-            productEntity = _productRepo.Create(productEntity);
+                if (categoryEntity != null && descriptionEntity != null && manufactureEntity != null &&
+                    pricelistEntity != null && reviewEntity != null)
+                {
+                    var productEntity = new ProductEntity
+                    {
+                        ArticleNumber = articleNumber,
+                        Title = title,
+                        CategoryId = categoryEntity.CategoryId,
+                        DescriptionId = descriptionEntity.DescriptionId,
+                        ManufactureId = manufactureEntity.ManufactureId,
+                        PriceId = pricelistEntity.PriceId,
+                        ReviewId = reviewEntity.ReviewId
+                    };
+
+                    if (_productRepo != null)
+                    {
+                        productEntity = _productRepo.Create(productEntity);
+                        return productEntity;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Error :: _productRepo is null.");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("Error :: One or more entities are null.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error :: " + ex.Message);
+            }
+
+            return null;
+        }
+
+        public ProductEntity GetProductByTitle(string title)
+        {
+            var productEntity = _productRepo.GetOne(x => x.Title == title);
             return productEntity;
-
         }
-        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
-        return null!;
-    }
 
-
-    public ProductEntity GetProductByTitle(string title)
-    {
-        var productEntity = _productRepo.GetOne(x => x.Title == title);
-        return productEntity;
-    }
-
-
-    public ProductEntity GetProductByArticleNumber(string articleNumber)
-    {
-        var productEntity = _productRepo.GetOne(x => x.ArticleNumber == articleNumber);
-        return productEntity;
-    }
-
-
-    public IEnumerable<ProductEntity> GetProducts()
-    {
-        var products = _productRepo.GetAll();
-        return products;
-    }
-
-
-    public ProductEntity UpdateProduct(ProductEntity productEntity)
-    {
-        var updatedProductEntity = _productRepo.Update(x => x.ArticleNumber == productEntity.ArticleNumber, productEntity);
-        return updatedProductEntity;
-    }
-
-
-    public bool DeleteProduct(string articleNumber)
-    {
-        try
+        public ProductEntity GetProductByArticleNumber(string articleNumber)
         {
-            return _productRepo.Delete(x => x.ArticleNumber == articleNumber);
+            var productEntity = _productRepo.GetOne(x => x.ArticleNumber == articleNumber);
+            return productEntity;
         }
-        catch (Exception ex)
+
+        public IEnumerable<ProductEntity> GetProducts()
         {
-            Debug.WriteLine("Error :: " + ex.Message);
-            return false;
+            var products = _productRepo.GetAll();
+            return products;
+        }
+
+        public ProductEntity UpdateProduct(ProductEntity productEntity)
+        {
+            var updatedProductEntity = _productRepo.Update(x => x.ArticleNumber == productEntity.ArticleNumber, productEntity);
+            return updatedProductEntity;
+        }
+
+        public bool DeleteProduct(string articleNumber)
+        {
+            try
+            {
+                return _productRepo.Delete(x => x.ArticleNumber == articleNumber);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error :: " + ex.Message);
+                return false;
+            }
         }
     }
 }
-

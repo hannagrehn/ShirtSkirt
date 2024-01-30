@@ -9,7 +9,7 @@ public class DescriptionEntity
     [Key]
     public int DescriptionId { get; set; }
     public string Ingress { get; set; } = null!;
-    public string LongDescription { get; set; } = null!;
+    public string? LongDescription { get; set; } = null!;
 
 
 }

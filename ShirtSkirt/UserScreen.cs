@@ -1,11 +1,13 @@
 ﻿
 using ShirtSkirt.Services;
+using System.Diagnostics;
 
 namespace ShirtSkirt;
 
 public class UserScreen
 {
     private readonly ProductService _productService;
+    private readonly CategoryService _categoryService;
 
     public UserScreen(ProductService productService)
     {
@@ -16,16 +18,16 @@ public class UserScreen
     {
         Console.WriteLine("*** Create Product ***");
 
-        Console.WriteLine("Product Article Number: ");
+        Console.WriteLine("Product articlenumber: ");
         var articleNumber = Console.ReadLine()!;
 
-        Console.WriteLine("Product Title: ");
+        Console.WriteLine("Product title: ");
         var title = Console.ReadLine()!;
 
-        Console.WriteLine("Product Manufacture: ");
+        Console.WriteLine("Product manufacture: ");
         var manufactureName = Console.ReadLine()!;
 
-        Console.WriteLine("Product Category: ");
+        Console.WriteLine("Product category: ");
         var categoryName = Console.ReadLine()!;
 
         Console.WriteLine("Enter the price: ");
@@ -39,7 +41,6 @@ public class UserScreen
         {
             Console.WriteLine("Invalid input. Please enter a valid positive decimal");
         }
-
 
         Console.WriteLine("Product Ingress: ");
         var ingress = Console.ReadLine()!;
@@ -99,5 +100,38 @@ public class UserScreen
             Console.ReadKey();
         }
         else Console.WriteLine("nope");
+    }
+
+    public void GetProducts_UI()
+    {
+        var products = _productService.GetProducts();
+        foreach ( var product in products )
+        {
+            Console.WriteLine($"{product.Title} - {product.CategoryName} - {product.Price} SEK");
+        }
+
+        Console.ReadKey();
+    }
+
+    public void AddCategory_UI()
+    {
+        Console.WriteLine("Product Category: ");
+        var categoryName = Console.ReadLine()!;
+
+        var result = _categoryService.CreateCategory(categoryName);
+
+        if (result != null)
+        {
+            Console.Clear();
+            Console.WriteLine("Your category has been created!");
+            Console.ReadKey();
+        }
+        else Console.WriteLine("Nope");
+        Console.ReadKey();
+    }
+
+    public void UpdateProduct_UI()
+    {
+        
     }
 }
