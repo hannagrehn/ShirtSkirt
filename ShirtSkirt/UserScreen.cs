@@ -132,6 +132,9 @@ public class UserScreen
 
     public void UpdateProduct_UI()
     {
-        
+        Console.Clear();
+        Console.WriteLine("Enter product title: ");
+        var id = Console.ReadLine()!;
+        var product = _productService.GetProductByTitle(id);
     }
 }
