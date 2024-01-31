@@ -5,26 +5,37 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services;
 
-public class CategoryService
+public class CategoryService(CategoryRepo categoryRepo)
 {
-    private readonly CategoryRepo _categoryRepo;
-
-    public CategoryService(CategoryRepo categoryRepo)
-    {
-        _categoryRepo = categoryRepo;
-    }
+    private readonly CategoryRepo _categoryRepo = categoryRepo;
 
     public CategoryEntity CreateCategory(string categoryName)
     {
-        var categoryEntity = _categoryRepo.GetOne(x => x.CategoryName == categoryName);
-        categoryEntity ??= _categoryRepo.Create(new CategoryEntity { CategoryName = categoryName });
-        return categoryEntity; 
+        try
+        {
+            var categoryEntity = _categoryRepo.GetOne(x => x.CategoryName == categoryName);
+            categoryEntity ??= _categoryRepo.Create(new CategoryEntity { CategoryName = categoryName });
+            return categoryEntity;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Error: " + ex.Message);
+            return null!;
+        }
     }
 
     public CategoryEntity GetCategoryByName(string categoryName)
     {
-        var categoryEntity = _categoryRepo.GetOne(x => x.CategoryName == categoryName);
-        return categoryEntity;
+        try
+        {
+            var categoryEntity = _categoryRepo.GetOne(x => x.CategoryName == categoryName);
+            return categoryEntity;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Error: " + ex.Message);
+            return null!;
+        }
     }
 
     public CategoryEntity GetCategoryById(int id)

@@ -13,26 +13,26 @@ public class ProductEntity
 
     [ForeignKey("ManufactureId")]
     public int ManufactureId { get; set; }
-    public ManufactureEntity ManufactureName { get; set; } = null!;
+    public ManufactureEntity Manufacture { get; set; } = null!;
 
 
     [ForeignKey("DescriptionId")]
     public int DescriptionId { get; set; }
-    public DescriptionEntity Ingress { get; set; } = null!;
+    public DescriptionEntity Description { get; set; } = null!;
 
 
     [ForeignKey("ReviewId")]
     public int ReviewId { get; set; }
-    public ReviewEntity ReviewText { get; set; } = null!;
+    public ReviewEntity Review { get; set; } = null!;
 
 
-    [ForeignKey("PriceId")]
-    public int PriceId { get; set; }
-    public PricelistEntity Price { get; set; } = null!;
+    [ForeignKey("PriceListId")]
+    public int PriceListId { get; set; }
+    public PricelistEntity PriceList { get; set; } = null!;
 
 
     [ForeignKey("CategoryId")]
     public int CategoryId { get; set; }
-    public CategoryEntity CategoryName { get; set; } = null!;
+    public CategoryEntity Category { get; set; } = null!;
 
 }

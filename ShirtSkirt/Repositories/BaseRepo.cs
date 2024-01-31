@@ -20,6 +20,7 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         {
             _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
+            
             return entity;
         }
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }

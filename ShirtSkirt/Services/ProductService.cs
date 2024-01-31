@@ -6,24 +6,14 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services
 {
-    public class ProductService
+    public class ProductService(ProductRepo productRepo, CategoryService categoryService, DescriptionService descriptionService, ManufactureService manufacturerService, PriceService priceService, ReviewService reviewService)
     {
-        private readonly ProductRepo _productRepo;
-        private readonly CategoryService _categoryService;
-        private readonly DescriptionService _descriptionService;
-        private readonly ManufactureService _manufacturerService;
-        private readonly PriceService _priceService;
-        private readonly ReviewService _reviewService;
-
-        public ProductService(ProductRepo productRepo, CategoryService categoryService, DescriptionService descriptionService, ManufactureService manufacturerService, PriceService priceService, ReviewService reviewService)
-        {
-            _productRepo = productRepo;
-            _categoryService = categoryService;
-            _descriptionService = descriptionService;
-            _manufacturerService = manufacturerService;
-            _priceService = priceService;
-            _reviewService = reviewService;
-        }
+        private readonly ProductRepo _productRepo = productRepo;
+        private readonly CategoryService _categoryService = categoryService;
+        private readonly DescriptionService _descriptionService = descriptionService;
+        private readonly ManufactureService _manufacturerService = manufacturerService;
+        private readonly PriceService _priceService = priceService;
+        private readonly ReviewService _reviewService = reviewService;
 
         public ProductEntity CreateProduct(
             string articleNumber,
@@ -56,7 +46,7 @@ namespace ShirtSkirt.Services
                         CategoryId = categoryEntity.CategoryId,
                         DescriptionId = descriptionEntity.DescriptionId,
                         ManufactureId = manufactureEntity.ManufactureId,
-                        PriceId = pricelistEntity.PriceId,
+                        PriceListId = pricelistEntity.PriceId,
                         ReviewId = reviewEntity.ReviewId
                     };
 
@@ -80,7 +70,7 @@ namespace ShirtSkirt.Services
                 Debug.WriteLine("Error :: " + ex.Message);
             }
 
-            return null;
+            return null!;
         }
 
         public ProductEntity GetProductByTitle(string title)

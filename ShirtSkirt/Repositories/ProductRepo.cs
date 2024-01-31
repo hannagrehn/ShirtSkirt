@@ -16,11 +16,11 @@ public class ProductRepo(DataContext context) : BaseRepo<ProductEntity>(context)
         try
         {
             return _context.Products
-            .Include(i => i.ManufactureName)
-            .Include(i => i.Ingress)
-            .Include(i => i.ReviewText)
-            .Include(i => i.Price)
-            .Include(i => i.CategoryName)
+            .Include(i => i.Manufacture)
+            .Include(i => i.Description)
+            .Include(i => i.Review)
+            .Include(i => i.PriceList)
+            .Include(i => i.Category)
             .FirstOrDefault(predicate, null!);
         }
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
@@ -31,11 +31,11 @@ public class ProductRepo(DataContext context) : BaseRepo<ProductEntity>(context)
     public override IEnumerable<ProductEntity> GetAll()
     {
         return _context.Products
-            .Include(i => i.ManufactureName)
-            .Include(i => i.Ingress)
-            .Include(i => i.ReviewText)
-            .Include(i => i.Price)
-            .Include(i => i.CategoryName)
+            .Include(i => i.Manufacture)
+            .Include(i => i.Description)
+            .Include(i => i.Review)
+            .Include(i => i.PriceList)
+            .Include(i => i.Category)
             .ToList();
     }
 }

@@ -42,20 +42,20 @@ public class UserScreen
             Console.WriteLine("Invalid input. Please enter a valid positive decimal");
         }
 
-        Console.WriteLine("Product Ingress: ");
+        Console.WriteLine("Product ingress: ");
         var ingress = Console.ReadLine()!;
 
-        Console.WriteLine("Product Long Description: ");
+        Console.WriteLine("Product long description: ");
         var longDescription = Console.ReadLine()!;
 
-        Console.WriteLine("Product Review: ");
+        Console.WriteLine("Product review: ");
         var reviewText = Console.ReadLine()!;
 
-        Console.WriteLine("Product Reviewers name: ");
+        Console.WriteLine("Product reviewers name: ");
         var reviewerName = Console.ReadLine()!;
 
 
-        Console.WriteLine("Product date of review (yyyy-MM-dd): ");
+        Console.WriteLine("Product date of review (yyyy-mm-dd): ");
         string reviewDateInput = Console.ReadLine()!;
 
         if (DateOnly.TryParse(reviewDateInput, out DateOnly reviewDate))
@@ -64,7 +64,7 @@ public class UserScreen
         }
         else
         {
-            Console.WriteLine("Invalid date format. Please enter a valid date (yyyy-MM-dd).");
+            Console.WriteLine("Invalid date format. Please enter a valid date (yyyy-mm-dd).");
         }
 
 
@@ -99,7 +99,7 @@ public class UserScreen
             Console.WriteLine("Your product has been created!");
             Console.ReadKey();
         }
-        else Console.WriteLine("nope");
+        else Console.WriteLine("Nope");
     }
 
     public void GetProducts_UI()
@@ -107,7 +107,7 @@ public class UserScreen
         var products = _productService.GetProducts();
         foreach ( var product in products )
         {
-            Console.WriteLine($"{product.Title} - {product.CategoryName} - {product.Price} SEK");
+            Console.WriteLine($"{product.Title} - {product.Category.CategoryName} - {product.PriceList.Price} SEK");
         }
 
         Console.ReadKey();
@@ -137,4 +137,6 @@ public class UserScreen
         var id = Console.ReadLine()!;
         var product = _productService.GetProductByTitle(id);
     }
+
+
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShirtSkirt.Contexts;
 
@@ -11,9 +12,11 @@ using ShirtSkirt.Contexts;
 namespace ShirtSkirt.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240131122947_TablesUpdated")]
+    partial class TablesUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +112,10 @@ namespace ShirtSkirt.Migrations
                     b.Property<int>("ManufactureId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PriceListId")
+                    b.Property<int>("PriceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriceListPriceId")
                         .HasColumnType("int");
 
                     b.Property<int>("ReviewId")
@@ -127,7 +133,7 @@ namespace ShirtSkirt.Migrations
 
                     b.HasIndex("ManufactureId");
 
-                    b.HasIndex("PriceListId");
+                    b.HasIndex("PriceListPriceId");
 
                     b.HasIndex("ReviewId");
 
@@ -182,7 +188,7 @@ namespace ShirtSkirt.Migrations
 
                     b.HasOne("ShirtSkirt.Entities.PricelistEntity", "PriceList")
                         .WithMany()
-                        .HasForeignKey("PriceListId")
+                        .HasForeignKey("PriceListPriceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
