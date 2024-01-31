@@ -1,7 +1,5 @@
 ﻿using ShirtSkirt.Entities;
 using ShirtSkirt.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ShirtSkirt.Services

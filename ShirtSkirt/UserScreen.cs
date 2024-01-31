@@ -101,7 +101,6 @@ public class UserScreen
         }
         else Console.WriteLine("Nope");
     }
-
     public void GetProducts_UI()
     {
         var products = _productService.GetProducts();
@@ -112,7 +111,9 @@ public class UserScreen
 
         Console.ReadKey();
     }
+    
 
+    //not working
     public void AddCategory_UI()
     {
         Console.WriteLine("Product Category: ");
@@ -130,12 +131,66 @@ public class UserScreen
         Console.ReadKey();
     }
 
+
+    //not working
     public void UpdateProduct_UI()
     {
         Console.Clear();
-        Console.WriteLine("Enter product title: ");
-        var id = Console.ReadLine()!;
-        var product = _productService.GetProductByTitle(id);
+        Console.WriteLine("Enter product article number: ");
+        var articleNumber = Console.ReadLine()!;
+        var product = _productService.GetProductByArticleNumber(articleNumber);
+
+        try
+        {
+            if (product != null)
+            {
+                Console.WriteLine($"{product.Title} - {product.Category.CategoryName} - {product.PriceList.Price} SEK");
+                Console.WriteLine();
+
+                Console.Write("New product title: ");
+                product.Title = Console.ReadLine()!;
+
+                var newProduct = _productService.UpdateProduct(product);
+                Console.WriteLine($"{product.Title} - {product.Category.CategoryName} - {product.PriceList.Price} SEK");
+            }
+            else
+            {
+                Console.WriteLine("No product found.");
+            }
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Error :: " + ex.Message);
+        }
+    }
+
+
+    //not working
+    public void DeleteProduct_UI()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter product article number: ");
+        var articleNumber = Console.ReadLine()!;
+
+        var product = _productService.GetProductByArticleNumber(articleNumber);
+        try
+        {
+            if (product != null)
+            {
+                _productService.DeleteProduct(product.ArticleNumber);
+                Console.WriteLine("It was deleted.");
+            }
+            else
+            {
+                Console.WriteLine("No product found.");
+            }
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Error :: " + ex.Message);
+        }
     }
 
 

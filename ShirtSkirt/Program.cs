@@ -35,3 +35,5 @@ var userScreen = builder.Services.GetRequiredService<UserScreen>();
 userScreen.CreateProduct_UI();
 //userScreen.GetProducts_UI();
 //userScreen.AddCategory_UI();
+//userScreen.UpdateProduct_UI();
+//userScreen.DeleteProduct_UI();
