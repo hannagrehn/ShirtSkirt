@@ -26,15 +26,13 @@ namespace ShirtSkirt.Repositories
                     .Include(i => i.PriceList)
                     .Include(i => i.Category)
                     .Where(predicate);
-
-                Console.WriteLine($"Debug: Generated SQL Query: {query.ToQueryString()}");
-
+           
                 return query.FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Error :: " + ex.Message);
-                throw; // Rethrow the exception after logging
+                throw; 
             }
         }
 

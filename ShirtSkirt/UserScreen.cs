@@ -15,21 +15,93 @@ public class UserScreen
         _categoryService = categoryService;
     }
 
+    //public void DisplayMenu(UserScreen userScreen)
+    //{
+    //    int selectedIndex = 0;
+    //    List<Action> menuActions = new List<Action>
+    //{
+    //    userScreen.CreateProduct_UI,
+    //    userScreen.GetProducts_UI,
+    //    userScreen.AddCategory_UI,
+    //    userScreen.UpdateProduct_UI,
+    //    userScreen.DeleteProduct_UI,
+    //    userScreen.Hangman,
+    //    () => Environment.Exit(0)
+    //};
+
+    //    while (true)
+    //    {
+    //        Console.Clear();
+    //        Console.WriteLine("=== Menu ===");
+
+    //        for (int i = 0; i < menuActions.Count; i++)
+    //        {
+    //            if (i == selectedIndex)
+    //            {
+    //                Console.BackgroundColor = ConsoleColor.Gray;
+    //                Console.ForegroundColor = ConsoleColor.Black;
+    //            }
+
+    //            Console.WriteLine($"{i + 1}. {GetMenuItemName(i)}");
+
+    //            Console.ResetColor();
+    //        }
+
+    //        ConsoleKeyInfo key = Console.ReadKey();
+
+    //        switch (key.Key)
+    //        {
+    //            case ConsoleKey.UpArrow:
+    //                selectedIndex = (selectedIndex - 1 + menuActions.Count) % menuActions.Count;
+    //                break;
+    //            case ConsoleKey.DownArrow:
+    //                selectedIndex = (selectedIndex + 1) % menuActions.Count;
+    //                break;
+    //            case ConsoleKey.Enter:
+    //                menuActions[selectedIndex].Invoke();
+    //                break;
+    //        }
+
+    //        Add the following line to wait for user input after displaying the menu
+
+    //       Console.ReadKey();
+    //    }
+    //}
+
+    //private string GetMenuItemName(int index)
+    //{
+    //    switch (index)
+    //    {
+    //        case 0: return "Create Product";
+    //        case 1: return "Get Products";
+    //        case 2: return "Add Category";
+    //        case 3: return "Update Product";
+    //        case 4: return "Delete Product";
+    //        case 5: return "Play hangman";
+    //        case 6: return "Exit";
+    //        default: return "Unknown";
+    //    }
+    //}
+
+
+
+
     public void DisplayMenu(UserScreen userScreen)
     {
         while (true)
         {
             Console.Clear();
             Console.WriteLine("=== Menu ===");
-            Console.WriteLine("1. Create Product");
+            Console.WriteLine("\n1. Create Product");
             Console.WriteLine("2. Get Products");
             Console.WriteLine("3. Add Category");
             Console.WriteLine("4. Update Product");
             Console.WriteLine("5. Delete Product");
+            Console.WriteLine("6. Play hangman");
             Console.WriteLine("0. Exit");
 
             Console.Write("Enter your choice: ");
-            string choice = Console.ReadLine();
+            string? choice = Console.ReadLine();
 
             switch (choice)
             {
@@ -48,6 +120,9 @@ public class UserScreen
                 case "5":
                     userScreen.DeleteProduct_UI();
                     break;
+                case "6":
+                    userScreen.Hangman();
+                    break;
                 case "0":
                     Environment.Exit(0);
                     break;
@@ -55,7 +130,7 @@ public class UserScreen
                     Console.WriteLine("Invalid choice. Please try again.");
                     break;
             }
-           
+
             Console.ReadKey();
         }
     }
@@ -289,6 +364,56 @@ public class UserScreen
     }
 
 
+    public void Hangman()
+    {
+        string[] words = { "hangaman", "coding", "developer", "csharp", "coding" };
+        Random random = new Random();
+        string selectedWord = words[random.Next(words.Length)];
+        char[] wordToGuess = selectedWord.ToCharArray();
+        char[] guessedLetters = new char[wordToGuess.Length];
+        for (int i = 0; i < guessedLetters.Length; i++)
+        {
+            guessedLetters[i] = '_';
+        }
+        Console.Clear();
+        int attemptsLeft = 10;
+        while (attemptsLeft > 0)
+        {
+            
+            Console.WriteLine("Current word: " + new string(guessedLetters));
+            Console.WriteLine("Guess a letter: ");
+            char guess = char.ToLower(Console.ReadKey().KeyChar);
+            Console.WriteLine();
+            Console.Clear();
+            bool correctGuess = false;
+            for (int i = 0; i < wordToGuess.Length; i++)
+            {
+                
+                if (wordToGuess[i] == guess)
+                {
+                    Console.WriteLine("Correct!");
+                    guessedLetters[i] = guess;
+                    correctGuess = true;
+                }
+            }
+            if (!correctGuess)
+            {
+                attemptsLeft--;
+                Console.WriteLine("Nope! Attempts left: " + attemptsLeft);
+            }
 
-
+            if (new string(guessedLetters) == selectedWord)
+            {
+                Console.Clear();
+                Console.WriteLine($"Congrats! You guessed the word: {selectedWord}." );
+                
+                break;
+            }
+        }
+        if (attemptsLeft == 0)
+        {
+            Console.WriteLine($"Sorry, no attempts left. The correct word was: {selectedWord}.");        
+        }
+        Console.WriteLine("\nThanks for playing!");
+    }
 }

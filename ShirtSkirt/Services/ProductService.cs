@@ -79,11 +79,11 @@ namespace ShirtSkirt.Services
 
             if (productEntity != null)
             {
-                Console.WriteLine($"Product found - Article Number: {productEntity.ArticleNumber}, Title: {productEntity.Title}");
+                Console.WriteLine($"Product found - Article number: {productEntity.ArticleNumber}, Title: {productEntity.Title}");
             }
             else
             {
-                Console.WriteLine("Debug: No product found.");
+                Console.WriteLine("No product found.");
             }
 
             return productEntity!;

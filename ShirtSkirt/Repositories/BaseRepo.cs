@@ -57,17 +57,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
 
 
 
-    //public virtual TEntity GetOne(Expression<Func<TEntity, bool>> expression)
-    //{
-    //    try
-    //    {
-    //        return _context.Set<TEntity>().FirstOrDefault(expression, null!);
-    //    }
-    //    catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
-    //    return null!;
-    //}
-
-
     public virtual TEntity Update(Expression<Func<TEntity, bool>> expression, TEntity entity)
     {
         try
