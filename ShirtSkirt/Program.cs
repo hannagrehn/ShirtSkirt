@@ -5,13 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using ShirtSkirt.Repositories;
 using ShirtSkirt.Services;
 using ShirtSkirt;
+using Microsoft.Extensions.Logging;
 
 var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 {
     services.AddDbContext<DataContext>(x =>
-        x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\ShirtSkirt\ShirtSkirt\Data\db_skirt.mdf;Integrated Security=True;Connect Timeout=30"));
+    { 
+        x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\ShirtSkirt\ShirtSkirt\Data\db_skirt.mdf;Integrated Security=True;Connect Timeout=30");
+        x.LogTo(Console.WriteLine, LogLevel.Warning);
+    }); 
 
-    services.AddScoped<CategoryRepo>(); 
+services.AddScoped<CategoryRepo>(); 
     services.AddScoped<DescriptionRepo>();
     services.AddScoped<ManufactureRepo>();
     services.AddScoped<PriceRepo>();
@@ -32,8 +36,4 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 
 var userScreen = builder.Services.GetRequiredService<UserScreen>();
 
-userScreen.CreateProduct_UI();
-//userScreen.GetProducts_UI();
-//userScreen.AddCategory_UI();
-//userScreen.UpdateProduct_UI();
-//userScreen.DeleteProduct_UI();
+userScreen.DisplayMenu(userScreen);

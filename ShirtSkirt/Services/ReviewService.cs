@@ -9,7 +9,7 @@ namespace ShirtSkirt.Services;
 public class ReviewService
 {
     private readonly ReviewRepo _reviewRepo;
-    private readonly ReviewService _reviewService;
+    //private readonly ReviewService _reviewService;
 
     public ReviewService(ReviewRepo reviewRepo)
     {

@@ -73,15 +73,46 @@ namespace ShirtSkirt.Services
 
         public ProductEntity GetProductByTitle(string title)
         {
+            Console.WriteLine($"Searching for product with Title: {title}");
+
             var productEntity = _productRepo.GetOne(x => x.Title == title);
-            return productEntity;
+
+            if (productEntity != null)
+            {
+                Console.WriteLine($"Product found - Article Number: {productEntity.ArticleNumber}, Title: {productEntity.Title}");
+            }
+            else
+            {
+                Console.WriteLine("Debug: No product found.");
+            }
+
+            return productEntity!;
         }
+
 
         public ProductEntity GetProductByArticleNumber(string articleNumber)
         {
-            var productEntity = _productRepo.GetOne(x => x.ArticleNumber == articleNumber);
+            Console.WriteLine($"Searching for product with Article Number: {articleNumber}");
+            
+
+            var lowerArticleNumber = articleNumber.ToLower();
+            var productEntity = _productRepo.GetOne(x => x.ArticleNumber.ToLower() == lowerArticleNumber);
+
+            if (productEntity != null)
+            {
+                Console.Clear();
+                Console.WriteLine($"Product found - Title: {productEntity.Title}, Category: {productEntity.Category.CategoryName}, Price: {productEntity.PriceList.Price} SEK");
+            }
+            else
+            {
+                Console.WriteLine("No product found.");
+            }
+
             return productEntity;
         }
+
+
+
 
         public IEnumerable<ProductEntity> GetProducts()
         {

@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using ShirtSkirt.Contexts;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -25,7 +26,7 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         }
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
-    } 
+    }
 
 
     public virtual IEnumerable<TEntity> GetAll()
@@ -38,15 +39,33 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         return null!;
     }
 
+
+
+
     public virtual TEntity GetOne(Expression<Func<TEntity, bool>> expression)
     {
         try
         {
-            return _context.Set<TEntity>().FirstOrDefault(expression, null!);
+            return _context.Set<TEntity>().Where(expression).AsEnumerable().FirstOrDefault();
         }
-        catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Error :: " + ex.Message);
+        }
         return null!;
     }
+
+
+
+    //public virtual TEntity GetOne(Expression<Func<TEntity, bool>> expression)
+    //{
+    //    try
+    //    {
+    //        return _context.Set<TEntity>().FirstOrDefault(expression, null!);
+    //    }
+    //    catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
+    //    return null!;
+    //}
 
 
     public virtual TEntity Update(Expression<Func<TEntity, bool>> expression, TEntity entity)

@@ -19,21 +19,25 @@ namespace ShirtSkirt.Repositories
         {
             try
             {
-                return _context.Products
+                var query = _context.Products
                     .Include(i => i.Manufacture)
                     .Include(i => i.Description)
                     .Include(i => i.Review)
                     .Include(i => i.PriceList)
                     .Include(i => i.Category)
-                    .FirstOrDefault(predicate, null!);
+                    .Where(predicate);
+
+                Console.WriteLine($"Debug: Generated SQL Query: {query.ToQueryString()}");
+
+                return query.FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Error :: " + ex.Message);
+                throw; // Rethrow the exception after logging
             }
-
-            return null!;
         }
+
 
         public override IEnumerable<ProductEntity> GetAll()
         {

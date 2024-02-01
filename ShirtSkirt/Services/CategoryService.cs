@@ -5,9 +5,14 @@ using System.Diagnostics;
 
 namespace ShirtSkirt.Services;
 
-public class CategoryService(CategoryRepo categoryRepo)
+public class CategoryService  
 {
-    private readonly CategoryRepo _categoryRepo = categoryRepo;
+    private readonly CategoryRepo _categoryRepo;
+
+    public CategoryService(CategoryRepo categoryRepo)
+    {
+        _categoryRepo = categoryRepo;
+    }
 
     public CategoryEntity CreateCategory(string categoryName)
     {
