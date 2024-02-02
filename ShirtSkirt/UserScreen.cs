@@ -34,22 +34,17 @@ public class UserScreen
         while (true)
         {
             Console.Clear();
-
             WriteLogo();
-
-            Console.WriteLine("=== Menu ===");
+            Console.WriteLine("                 === Menu ===");
 
             for (int i = 0; i < menuActions.Count; i++)
             {
                 if (i == selectedIndex)
                 {
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                        
+                    //Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;                       
                 }
-
-                Console.WriteLine($"{i + 1}. {GetMenuItemName(i)}");
-
+                Console.WriteLine($"                {i + 1}. {GetMenuItemName(i)}");
                 Console.ResetColor();
             }
 
@@ -176,7 +171,6 @@ public class UserScreen
             Console.WriteLine($"{product.Title} - {product.Category.CategoryName} - {product.PriceList.Price} SEK");
         }
         Console.ReadKey();
-
     }
 
     public void AddCategory_UI()
@@ -185,9 +179,8 @@ public class UserScreen
         Console.WriteLine("*** Add category ***\n ");
         Console.WriteLine("Category name: ");
         var categoryName = Console.ReadLine()!;
-        
+   
         var result = _categoryService.CreateCategory(categoryName);
-
         if (result != null)
         {
             Console.Clear();
@@ -206,7 +199,6 @@ public class UserScreen
         var articleNumber = Console.ReadLine()!;
 
         var product = _productService.GetProductByArticleNumber(articleNumber);
-
         try
         {
             if (product != null)
@@ -249,7 +241,7 @@ public class UserScreen
         {
             if (product != null)
             {     
-                Console.WriteLine($"Do you want to delete {product.Title}?");
+                Console.WriteLine($"\nDo you want to delete {product.Title}? (y/n)");
                 var userInput = Console.ReadLine()!;
 
                 if (userInput == "y")
@@ -271,7 +263,8 @@ public class UserScreen
                 }            
             }
             else
-            {              
+            {
+                Console.Clear();
                 Console.WriteLine($"No product found with atricle number {articleNumber}.");
                 Console.ReadKey();
             }
@@ -319,8 +312,8 @@ public class UserScreen
 
 
     public void Hangman()
-    {    
-        string[] words = { "ginger", "headphones", "python", "csharp", "mouse", "bread" };
+    {
+        string[] words = { "ERROR", "HEADPHONES", "PYTHON", "CSHARP", "MOUSE", "DELETE", "DOTNET" };
         Random random = new Random();
         string selectedWord = words[random.Next(words.Length)];
         char[] wordToGuess = selectedWord.ToCharArray();
@@ -329,48 +322,81 @@ public class UserScreen
         {
             guessedLetters[i] = '_';
         }
+
+        List<char> wrongGuesses = new List<char>();
         Console.Clear();
         Console.WriteLine("*** Let's play hangman! One key at the time. ***");
         int attemptsLeft = 10;
+
         while (attemptsLeft > 0)
         {
-            
             Console.WriteLine("Current word: " + new string(guessedLetters));
-            Console.WriteLine("Guess a letter: ");
-            char guess = char.ToLower(Console.ReadKey().KeyChar);
-            Console.WriteLine();
-            Console.Clear();
-            bool correctGuess = false;
-            for (int i = 0; i < wordToGuess.Length; i++)
+            Console.Write("Wrong guesses: ");
+            foreach (char wrongGuess in wrongGuesses)
             {
-                
-                if (wordToGuess[i] == guess)
+                if (wrongGuesses.Count(g => g == wrongGuess) > 1)
                 {
-                    Console.WriteLine("Correct!");
-                    guessedLetters[i] = guess;
-                    correctGuess = true;
+                    Console.Write(wrongGuess + ", ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.Write(wrongGuess + " ");
                 }
             }
-            if (!correctGuess)
+
+            Console.Write("\n\nGuess a letter: ");
+            char guess = char.ToUpper(Console.ReadKey().KeyChar);
+
+            Console.Clear();
+            bool correctGuess = false;
+            bool alreadyGuessed = guessedLetters.Contains(guess) || wrongGuesses.Contains(guess);
+
+            if (!alreadyGuessed)
             {
-                attemptsLeft--;
-                Console.WriteLine("Nope! Attempts left: " + attemptsLeft);
+                for (int i = 0; i < wordToGuess.Length; i++)
+                {
+                    if (wordToGuess[i] == guess)
+                    {
+                        Console.WriteLine("Correct!");
+                        guessedLetters[i] = guess;
+                        correctGuess = true;
+                    }
+                }
+
+                if (!correctGuess)
+                {
+                    attemptsLeft--;
+                    Console.WriteLine("Nope! Attempts left: " + attemptsLeft);
+                    wrongGuesses.Add(guess);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"You already guessed {guess}! Try a different letter.");
             }
 
             if (new string(guessedLetters) == selectedWord)
             {
                 Console.Clear();
-                Console.WriteLine($"Congrats! You guessed the word: {selectedWord}." );
-                break;
+                Console.WriteLine($"Congrats! You guessed the word: {selectedWord}");
+                break; 
             }
         }
-        if (attemptsLeft == 0)
+
+        if (new string(guessedLetters) != selectedWord)
         {
-            Console.WriteLine($"Sorry, no attempts left. The correct word was: {selectedWord}.");
+            Console.WriteLine($"Sorry, no attempts left. The correct word was: {selectedWord}");
         }
+
         Console.WriteLine("\nThanks for playing!");
         Console.ReadKey();
     }
+
+
+
+
+
 
     public void WriteLogo()
     {
