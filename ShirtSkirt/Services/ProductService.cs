@@ -67,7 +67,6 @@ namespace ShirtSkirt.Services
             {
                 Debug.WriteLine("Error :: " + ex.Message);
             }
-
             return null!;
         }
 
@@ -85,15 +84,12 @@ namespace ShirtSkirt.Services
             {
                 Console.WriteLine("No product found.");
             }
-
             return productEntity!;
         }
-
 
         public ProductEntity GetProductByArticleNumber(string articleNumber)
         {
             Console.WriteLine($"Searching for product with Article Number: {articleNumber}");
-            
 
             var lowerArticleNumber = articleNumber.ToLower();
             var productEntity = _productRepo.GetOne(x => x.ArticleNumber.ToLower() == lowerArticleNumber);
@@ -110,9 +106,6 @@ namespace ShirtSkirt.Services
 
             return productEntity!;
         }
-
-
-
 
         public IEnumerable<ProductEntity> GetProducts()
         {

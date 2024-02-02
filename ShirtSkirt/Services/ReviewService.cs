@@ -17,9 +17,7 @@ public class ReviewService
     }
 
     public ReviewEntity CreateReview(string reviewerName, int rating, string reviewText, DateOnly reviewDate)
-    {
-        
-
+    {     
         try
         {
             var reviewEntity = _reviewRepo.GetOne(x =>
@@ -31,7 +29,6 @@ public class ReviewService
                 Rating = rating,
                 ReviewText = reviewText,
                 ReviewDate = reviewDate
-
             });
             return reviewEntity;
         }
@@ -74,5 +71,4 @@ public class ReviewService
             return false;
         }
     }
-
 }

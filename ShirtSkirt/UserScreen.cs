@@ -310,10 +310,9 @@ public class UserScreen
         }
     }
 
-
     public void Hangman()
     {
-        string[] words = { "ERROR", "HEADPHONES", "PYTHON", "CSHARP", "MOUSE", "DELETE", "DOTNET" };
+        string[] words = { "ERROR", "HEADPHONES", "PYTHON", "CSHARP", "HANS", "MOUSE", "DELETE", "DOTNET" };
         Random random = new Random();
         string selectedWord = words[random.Next(words.Length)];
         char[] wordToGuess = selectedWord.ToCharArray();
@@ -392,11 +391,6 @@ public class UserScreen
         Console.WriteLine("\nThanks for playing!");
         Console.ReadKey();
     }
-
-
-
-
-
 
     public void WriteLogo()
     {
