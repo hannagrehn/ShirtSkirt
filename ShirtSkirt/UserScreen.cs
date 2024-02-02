@@ -1,6 +1,8 @@
 ﻿
 using ShirtSkirt.Services;
 using System.Diagnostics;
+using System.Drawing;
+
 
 namespace ShirtSkirt;
 
@@ -32,7 +34,10 @@ public class UserScreen
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("=== Menu ===\n");
+
+            WriteLogo();
+
+            Console.WriteLine("=== Menu ===");
 
             for (int i = 0; i < menuActions.Count; i++)
             {
@@ -40,6 +45,7 @@ public class UserScreen
                 {
                     Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                        
                 }
 
                 Console.WriteLine($"{i + 1}. {GetMenuItemName(i)}");
@@ -364,5 +370,19 @@ public class UserScreen
         }
         Console.WriteLine("\nThanks for playing!");
         Console.ReadKey();
+    }
+
+    public void WriteLogo()
+    {
+        string logo = @"
+ .-. .             .     .-. .             .  
+(   )|      o     _|_   (   )|      o     _|_ 
+ `-. |--.   .  .--.|     `-. |.-.   .  .--.|  
+(   )|  |   |  |   |    (   )|-.'   |  |   |  
+ `-' '  `--' `-'   `-'   `-' '  `--' `-'   `-'
+                      ";
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.WriteLine(logo);
+        Console.ResetColor();
     }
 }
