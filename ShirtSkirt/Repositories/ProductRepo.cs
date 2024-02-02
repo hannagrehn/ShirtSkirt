@@ -36,7 +36,6 @@ namespace ShirtSkirt.Repositories
             }
         }
 
-
         public override IEnumerable<ProductEntity> GetAll()
         {
             return _context.Products

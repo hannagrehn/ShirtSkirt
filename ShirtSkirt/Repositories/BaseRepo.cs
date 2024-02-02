@@ -28,7 +28,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         return null!;
     }
 
-
     public virtual IEnumerable<TEntity> GetAll()
     {
         try
@@ -38,9 +37,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
-
-
-
 
     public virtual TEntity GetOne(Expression<Func<TEntity, bool>> expression)
     {
@@ -55,8 +51,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         return null!;
     }
 
-
-
     public virtual TEntity Update(Expression<Func<TEntity, bool>> expression, TEntity entity)
     {
         try
@@ -70,7 +64,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return null!;
     }
-
 
     public virtual bool Delete(Expression<Func<TEntity, bool>> predicate)
     {
@@ -89,8 +82,6 @@ public abstract class BaseRepo<TEntity> where TEntity : class
         catch (Exception ex) { Debug.WriteLine("Error :: " + ex.Message); }
         return false;
     }
-
-
 
     public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
     {

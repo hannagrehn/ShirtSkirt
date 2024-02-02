@@ -108,7 +108,7 @@ namespace ShirtSkirt.Services
                 Console.WriteLine("No product found.");
             }
 
-            return productEntity;
+            return productEntity!;
         }
 
 

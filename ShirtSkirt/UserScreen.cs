@@ -15,123 +15,67 @@ public class UserScreen
         _categoryService = categoryService;
     }
 
-    //public void DisplayMenu(UserScreen userScreen)
-    //{
-    //    int selectedIndex = 0;
-    //    List<Action> menuActions = new List<Action>
-    //{
-    //    userScreen.CreateProduct_UI,
-    //    userScreen.GetProducts_UI,
-    //    userScreen.AddCategory_UI,
-    //    userScreen.UpdateProduct_UI,
-    //    userScreen.DeleteProduct_UI,
-    //    userScreen.Hangman,
-    //    () => Environment.Exit(0)
-    //};
-
-    //    while (true)
-    //    {
-    //        Console.Clear();
-    //        Console.WriteLine("=== Menu ===");
-
-    //        for (int i = 0; i < menuActions.Count; i++)
-    //        {
-    //            if (i == selectedIndex)
-    //            {
-    //                Console.BackgroundColor = ConsoleColor.Gray;
-    //                Console.ForegroundColor = ConsoleColor.Black;
-    //            }
-
-    //            Console.WriteLine($"{i + 1}. {GetMenuItemName(i)}");
-
-    //            Console.ResetColor();
-    //        }
-
-    //        ConsoleKeyInfo key = Console.ReadKey();
-
-    //        switch (key.Key)
-    //        {
-    //            case ConsoleKey.UpArrow:
-    //                selectedIndex = (selectedIndex - 1 + menuActions.Count) % menuActions.Count;
-    //                break;
-    //            case ConsoleKey.DownArrow:
-    //                selectedIndex = (selectedIndex + 1) % menuActions.Count;
-    //                break;
-    //            case ConsoleKey.Enter:
-    //                menuActions[selectedIndex].Invoke();
-    //                break;
-    //        }
-
-    //        Add the following line to wait for user input after displaying the menu
-
-    //       Console.ReadKey();
-    //    }
-    //}
-
-    //private string GetMenuItemName(int index)
-    //{
-    //    switch (index)
-    //    {
-    //        case 0: return "Create Product";
-    //        case 1: return "Get Products";
-    //        case 2: return "Add Category";
-    //        case 3: return "Update Product";
-    //        case 4: return "Delete Product";
-    //        case 5: return "Play hangman";
-    //        case 6: return "Exit";
-    //        default: return "Unknown";
-    //    }
-    //}
-
-
-
-
     public void DisplayMenu(UserScreen userScreen)
     {
+        int selectedIndex = 0;
+        List<Action> menuActions = new List<Action>
+        {
+        userScreen.CreateProduct_UI,
+        userScreen.GetProducts_UI,
+        userScreen.AddCategory_UI,
+        userScreen.UpdateProduct_UI,
+        userScreen.DeleteProduct_UI,
+        userScreen.Hangman,
+        () => Environment.Exit(0)
+        };
+
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("=== Menu ===");
-            Console.WriteLine("\n1. Create Product");
-            Console.WriteLine("2. Get Products");
-            Console.WriteLine("3. Add Category");
-            Console.WriteLine("4. Update Product");
-            Console.WriteLine("5. Delete Product");
-            Console.WriteLine("6. Play hangman");
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("=== Menu ===\n");
 
-            Console.Write("Enter your choice: ");
-            string? choice = Console.ReadLine();
-
-            switch (choice)
+            for (int i = 0; i < menuActions.Count; i++)
             {
-                case "1":
-                    userScreen.CreateProduct_UI();
-                    break;
-                case "2":
-                    userScreen.GetProducts_UI();
-                    break;
-                case "3":
-                    userScreen.AddCategory_UI();
-                    break;
-                case "4":
-                    userScreen.UpdateProduct_UI();
-                    break;
-                case "5":
-                    userScreen.DeleteProduct_UI();
-                    break;
-                case "6":
-                    userScreen.Hangman();
-                    break;
-                case "0":
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
+                if (i == selectedIndex)
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                }
+
+                Console.WriteLine($"{i + 1}. {GetMenuItemName(i)}");
+
+                Console.ResetColor();
             }
 
-            Console.ReadKey();
+            ConsoleKeyInfo key = Console.ReadKey();
+
+            switch (key.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedIndex = (selectedIndex - 1 + menuActions.Count) % menuActions.Count;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedIndex = (selectedIndex + 1) % menuActions.Count;
+                    break;
+                case ConsoleKey.Enter:
+                    menuActions[selectedIndex].Invoke();
+                    break;
+            }         
+        }
+    }
+
+    private string GetMenuItemName(int index)
+    {
+        switch (index)
+        {
+            case 0: return "Create product";
+            case 1: return "Show all";
+            case 2: return "Add category";
+            case 3: return "Update product";
+            case 4: return "Delete product";
+            case 5: return "Play hangman";
+            case 6: return "Exit";
+            default: return "Unknown";
         }
     }
 
@@ -212,6 +156,7 @@ public class UserScreen
             Console.ReadKey();
         }
         else Console.WriteLine("No product for you.");
+        Console.ReadKey();
     }
 
     public void GetProducts_UI()
@@ -224,7 +169,8 @@ public class UserScreen
         {
             Console.WriteLine($"{product.Title} - {product.Category.CategoryName} - {product.PriceList.Price} SEK");
         }
-        
+        Console.ReadKey();
+
     }
 
     public void AddCategory_UI()
@@ -271,10 +217,12 @@ public class UserScreen
                 Console.Clear();
                 Console.WriteLine("*** Behold your new product! ***\n");
                 Console.WriteLine($"{product.Title} - {product.Category.CategoryName} - {product.PriceList.Price} SEK");
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("No product found.");
+                Console.ReadKey();
             }
         }
         catch (Exception ex)
@@ -294,8 +242,7 @@ public class UserScreen
         try
         {
             if (product != null)
-            {
-                Console.Clear();
+            {     
                 Console.WriteLine($"Do you want to delete {product.Title}?");
                 var userInput = Console.ReadLine()!;
 
@@ -304,21 +251,23 @@ public class UserScreen
                     _productService.DeleteProduct(product.ArticleNumber);
                     Console.Clear();
                     Console.WriteLine($"{product.ArticleNumber} - {product.Title} was deleted.");
+                    Console.ReadKey();
                 }
                 else if (userInput == "n") 
                 {
-                    Console.WriteLine("No product deleted.");                  
+                    Console.WriteLine("No product deleted.");
+                    Console.ReadKey();
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input.");                 
-                }
-                
+                    Console.WriteLine("Invalid input.");
+                    Console.ReadKey();
+                }            
             }
             else
-            {
-                Console.Clear();
+            {              
                 Console.WriteLine($"No product found with atricle number {articleNumber}.");
+                Console.ReadKey();
             }
         }
         catch (Exception ex)
@@ -328,7 +277,6 @@ public class UserScreen
     }
 
 
-    //bunch of shirt going on down here
     public void TestGetProductByArticleNumber()
     {
         Console.WriteLine("Testing GetProductByArticleNumber");
@@ -365,8 +313,8 @@ public class UserScreen
 
 
     public void Hangman()
-    {
-        string[] words = { "hangaman", "coding", "developer", "csharp", "coding" };
+    {    
+        string[] words = { "ginger", "headphones", "python", "csharp", "mouse", "bread" };
         Random random = new Random();
         string selectedWord = words[random.Next(words.Length)];
         char[] wordToGuess = selectedWord.ToCharArray();
@@ -376,6 +324,7 @@ public class UserScreen
             guessedLetters[i] = '_';
         }
         Console.Clear();
+        Console.WriteLine("*** Let's play hangman! One key at the time. ***");
         int attemptsLeft = 10;
         while (attemptsLeft > 0)
         {
@@ -406,14 +355,14 @@ public class UserScreen
             {
                 Console.Clear();
                 Console.WriteLine($"Congrats! You guessed the word: {selectedWord}." );
-                
                 break;
             }
         }
         if (attemptsLeft == 0)
         {
-            Console.WriteLine($"Sorry, no attempts left. The correct word was: {selectedWord}.");        
+            Console.WriteLine($"Sorry, no attempts left. The correct word was: {selectedWord}.");
         }
         Console.WriteLine("\nThanks for playing!");
+        Console.ReadKey();
     }
 }
