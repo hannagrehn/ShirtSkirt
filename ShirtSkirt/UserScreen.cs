@@ -1,8 +1,5 @@
-﻿
-using ShirtSkirt.Services;
+﻿using ShirtSkirt.Services;
 using System.Diagnostics;
-using System.Drawing;
-
 
 namespace ShirtSkirt;
 
@@ -181,11 +178,10 @@ public class UserScreen
         var categoryName = Console.ReadLine()!;
    
         var result = _categoryService.CreateCategory(categoryName);
-        if (result != null)
+        if (result != null) 
         {
             Console.Clear();
             Console.WriteLine($"Your category {categoryName} has been created!");
-            Console.ReadKey();
         }
         else Console.WriteLine("No catagory has been created.");
         Console.ReadKey();
