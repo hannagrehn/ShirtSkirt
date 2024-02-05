@@ -37,11 +37,10 @@ public class UserScreen
             for (int i = 0; i < menuActions.Count; i++)
             {
                 if (i == selectedIndex)
-                {
-                    //Console.BackgroundColor = ConsoleColor.DarkGray;
+                {              
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;                       
                 }
-                Console.WriteLine($"                {i + 1}. {GetMenuItemName(i)}");
+                Console.WriteLine($"               {i + 1}. {GetMenuItemName(i)}");
                 Console.ResetColor();
             }
 
