@@ -36,6 +36,5 @@ services.AddScoped<CategoryRepo>();
 
 var userScreen = builder.Services.GetRequiredService<UserScreen>();
 
-//userScreen.DisplayMenu(userScreen, ConsoleColor.Magenta);
 
 userScreen.DisplayMenu(userScreen);
