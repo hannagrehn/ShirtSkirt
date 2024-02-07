@@ -7,5 +7,8 @@ public partial class LanguageEntity
 {
     public int? LanguageId { get; set; }
 
-    public string? Language1 { get; set; }
+    public string? Language { get; set; }
+
+    public virtual ICollection<ProfileEntity> Profiles { get; set; } = new List<ProfileEntity>();
+    public virtual ProfileEntity? Profile { get; set; }
 }
