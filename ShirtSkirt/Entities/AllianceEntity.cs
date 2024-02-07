@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShirtSkirt.Entities;
 
 public partial class AllianceEntity
 {
     public int? AllianceId { get; set; }
+    public string? AllianceName { get; set; }
 
-    public string? Alliance { get; set; }
-
+    [InverseProperty("Alliance")]
     public virtual ICollection<ProfileEntity> Profiles { get; set; } = new List<ProfileEntity>();
 
     public virtual ProfileEntity? Profile { get; set; }
