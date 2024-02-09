@@ -12,5 +12,5 @@ public partial class LanguageEntity
 
     [InverseProperty("Language")]
     public virtual ICollection<ProfileEntity> Profiles { get; set; } = new List<ProfileEntity>();
-    public virtual ProfileEntity? Profile { get; set; }
+   
 }

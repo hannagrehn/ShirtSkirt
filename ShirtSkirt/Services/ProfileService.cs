@@ -71,7 +71,25 @@ public class ProfileService(ProfileRepo profileRepo, AllianceService allianceSer
 
         if (profileEntity != null)
         {
-            Console.WriteLine($"Profile found - {profileEntity.FirstName} {profileEntity.LastName}, {profileEntity.Role} in {profileEntity.Alliance}.");
+            Console.WriteLine($"Profile found - {profileEntity.FirstName} {profileEntity.LastName}, {profileEntity.Role.RoleName} in {profileEntity.Alliance.AllianceName}.");
+        }
+        else
+        {
+            Console.WriteLine("No profile found.");
+        }
+        return profileEntity!;
+    }
+
+
+    public ProfileEntity GetProfileByProfileId(int profileId)
+    {
+        Console.WriteLine($"Searching for profile with profile ID: {profileId}");
+
+        var profileEntity = _profileRepo.GetOne(x => x.ProfileId == profileId);
+
+        if (profileEntity != null)
+        {
+            Console.WriteLine($"Profile found - {profileId}, {profileEntity.FirstName} {profileEntity.LastName}, {profileEntity.Role.RoleName} in {profileEntity.Alliance.AllianceName}.");
         }
         else
         {
@@ -108,9 +126,6 @@ public class ProfileService(ProfileRepo profileRepo, AllianceService allianceSer
             return null!;
         }
     }
-
-
-
 
 
     public ProfileEntity UpdateProfile(ProfileEntity profileEntity)

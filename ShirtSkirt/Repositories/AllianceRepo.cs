@@ -5,12 +5,7 @@ using AppContext = ShirtSkirt.Contexts.AppContext;
 
 namespace ShirtSkirt.Repositories;
 
-public class AllianceRepo : BaseRepo<AllianceEntity>
+public class AllianceRepo(AppContext appContext) : BaseRepo<AllianceEntity>(appContext)
 {
-    private readonly AppContext _appContext;
-
-    public AllianceRepo(AppContext appContext) : base(appContext)
-    {
-        _appContext = appContext;
-    }
+    private readonly AppContext _appContext = appContext;
 }

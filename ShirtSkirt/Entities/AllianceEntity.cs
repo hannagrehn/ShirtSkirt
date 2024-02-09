@@ -11,6 +11,5 @@ public partial class AllianceEntity
 
     [InverseProperty("Alliance")]
     public virtual ICollection<ProfileEntity> Profiles { get; set; } = new List<ProfileEntity>();
-
-    public virtual ProfileEntity? Profile { get; set; }
+   
 }

@@ -18,6 +18,9 @@ namespace ShirtSkirt.Contexts
                 entity.HasKey(e => e.ProfileId);
                 entity.Property(e => e.FirstName).HasMaxLength(300).IsUnicode(true);
                 entity.Property(e => e.LastName).HasMaxLength(300).IsUnicode(true);
+                entity.Property(e => e.LanguageId).IsRequired();
+                entity.Property(e => e.AllianceId).IsRequired();
+                entity.Property(e => e.RoleId).IsRequired();
                 entity.ToTable("Profiles");
             });
 
@@ -42,7 +45,7 @@ namespace ShirtSkirt.Contexts
                 entity.ToTable("Languages");
             });
 
-        
+
             modelBuilder.Entity<ProfileEntity>()
                 .HasOne(p => p.Role)
                 .WithMany(r => r.Profiles)
@@ -60,7 +63,6 @@ namespace ShirtSkirt.Contexts
 
             OnModelCreatingPartial(modelBuilder);
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

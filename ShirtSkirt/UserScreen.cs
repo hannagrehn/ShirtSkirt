@@ -1,4 +1,5 @@
 ﻿using ShirtSkirt.Services;
+using System.Data;
 using System.Diagnostics;
 
 namespace ShirtSkirt;
@@ -79,9 +80,8 @@ public class UserScreen
 
             case 4: return "Create profile";
             case 5: return "Show all profiles";
-            case 6: return "Update alliance";
+            case 6: return "Update last name";
             case 7: return "Delete profile";
-
 
             case 8: return "Play hangman";
             case 9: return "Exit";
@@ -415,7 +415,6 @@ public class UserScreen
     }
 
     //Profiles begin here
-
     //userscreen.CreateProfile_UI,
     //userscreen.GetProfile_UI,
     //userscreen.UpdateAlliance_UI,
@@ -469,24 +468,19 @@ public class UserScreen
         Console.ReadKey();
     }
 
-
-
-
     public void GetProfiles_UI()
     {
         var profiles = _profileService.GetProfiles();
+        Console.Clear();
         Console.WriteLine("*** All profiles ***\n");
 
         foreach (var profile in profiles)
         {    
             string allianceName = profile.Alliance != null ? profile.Alliance.AllianceName : "No Alliance";
-            Console.WriteLine($"{profile.FirstName} {profile.LastName}, Alliance: {allianceName}");
+            Console.WriteLine($"{profile.FirstName} {profile.LastName}, {profile.Role.RoleName} {allianceName}");
         }
         Console.ReadKey();
     }
-
-
-
 
 
     public void UpdateProfile_UI()
@@ -503,7 +497,7 @@ public class UserScreen
             {
                 Console.Clear();
                 Console.WriteLine($"Profile containing: {lastName}: ");
-                Console.WriteLine($"{profile.FirstName} {profile.LastName} - {profile.Alliance}");
+                Console.WriteLine($"{profile.FirstName} {profile.LastName} - {profile.Alliance.AllianceName}");
                 Console.WriteLine();
 
                 Console.Write("New last name: ");
@@ -511,8 +505,8 @@ public class UserScreen
 
                 var newProfile = _profileService.UpdateProfile(profile);
                 Console.Clear();
-                Console.WriteLine("*** Behold your new last name! ***\n");
-                Console.WriteLine($"{profile.FirstName} - {profile.LastName} - {profile.Alliance} ");
+                Console.WriteLine("*** Behold your new last name! ***\n");              
+                Console.WriteLine($"{profile.FirstName} {profile.LastName} - {profile.Alliance.AllianceName} ");
                 Console.ReadKey();
             }
             else
@@ -526,10 +520,6 @@ public class UserScreen
             Debug.WriteLine("Error :: " + ex.Message);
         }
     }
-
-
-
-
 
     public void DeleteProfile_UI()
     {
