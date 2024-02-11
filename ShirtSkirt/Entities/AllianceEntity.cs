@@ -6,6 +6,7 @@ namespace ShirtSkirt.Entities;
 
 public partial class AllianceEntity
 {
+    //[ForeignKey("AllianceId")]
     public int? AllianceId { get; set; }
     public string? AllianceName { get; set; }
 

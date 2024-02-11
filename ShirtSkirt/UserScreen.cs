@@ -26,8 +26,7 @@ public class UserScreen
         userScreen.GetProducts_UI,
         userScreen.UpdateProduct_UI,
         userScreen.DeleteProduct_UI,
-
-        userScreen.CreateProfile_UI,
+      
         userScreen.GetProfiles_UI,
         userScreen.UpdateProfile_UI,
         userScreen.DeleteProfile_UI,
@@ -78,13 +77,12 @@ public class UserScreen
             case 2: return "Update product";
             case 3: return "Delete product";
 
-            case 4: return "Create profile";
-            case 5: return "Show all profiles";
-            case 6: return "Update last name";
-            case 7: return "Delete profile";
+            case 4: return "Show all profiles";
+            case 5: return "Update last name";
+            case 6: return "Delete profile";
 
-            case 8: return "Play hangman";
-            case 9: return "Exit";
+            case 7: return "Play hangman";
+            case 8: return "Exit";
             default: return "Unknown";
         }
     }
@@ -283,7 +281,6 @@ public class UserScreen
         }
     }
 
-
     public void TestGetProductByArticleNumber()
     {
         Console.WriteLine("Testing GetProductByArticleNumber");
@@ -414,12 +411,6 @@ public class UserScreen
         Console.ResetColor();
     }
 
-    //Profiles begin here
-    //userscreen.CreateProfile_UI,
-    //userscreen.GetProfile_UI,
-    //userscreen.UpdateAlliance_UI,
-    //userscreen.DeleteProfile_UI,
-
     public void CreateProfile_UI()
     {
         Console.Clear();
@@ -481,7 +472,6 @@ public class UserScreen
         }
         Console.ReadKey();
     }
-
 
     public void UpdateProfile_UI()
     {
@@ -545,7 +535,7 @@ public class UserScreen
                 }
                 else if (userInput == "n")
                 {
-                    Console.WriteLine("No product deleted.");
+                    Console.WriteLine("No profile deleted.");
                     Console.ReadKey();
                 }
                 else
