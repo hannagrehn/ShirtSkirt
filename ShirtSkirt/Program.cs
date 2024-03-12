@@ -49,3 +49,5 @@ var host = Host.CreateDefaultBuilder()
 
 var userScreen = host.Services.GetRequiredService<UserScreen>();
 userScreen.DisplayMenu(userScreen);
+
+//yes that will work
